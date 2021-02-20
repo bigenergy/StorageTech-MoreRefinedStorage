@@ -1,0 +1,45 @@
+buildscript {
+	repositories {
+		jcenter()
+		maven { url = "http://files.minecraftforge.net/maven" }
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+	}
+}
+
+repositories {
+	flatDir {
+		dirs 'lib'
+	}
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+version = "+R6.0"
+group= "StorageTech"
+archivesBaseName = "StorageTech"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+	sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+	version = "1.12.2-14.23.2.2613"
+	runDir = "run"
+	mappings = "stable_39"
+}
+
+dependencies {
+	compile name: 'StorageTech+R6.0'
+	compile name: 'morerefinedstorage-2.2.6'
+}
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	from zipTree('lib/' + archivesBaseName + version + '.jar')
+}
+
